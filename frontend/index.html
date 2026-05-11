@@ -9,6 +9,33 @@
         <script src="script.js" defer></script>
     </head>
     <body>
+        <section id="auth-section">
+            <h2>Login</h2>
+
+            <input
+                id="login-identifier"
+                type="text"
+                placeholder="Email or username"
+            />
+            <input id="login-password" type="password" placeholder="Password" />
+            <button id="login-btn">Login</button>
+
+            <h2>Register</h2>
+
+            <input id="register-username" type="text" placeholder="Username" />
+            <input id="register-email" type="email" placeholder="Email" />
+            <input
+                id="register-password"
+                type="password"
+                placeholder="Password"
+            />
+            <button id="register-btn">Register</button>
+        </section>
+
+        <section id="user-section" style="display: none">
+            <p id="logged-in-user"></p>
+            <button id="logout-btn">Logout</button>
+        </section>
         <div id="books-container"></div>
         <button id="reading-list-btn">My Reading List</button>
     </body>

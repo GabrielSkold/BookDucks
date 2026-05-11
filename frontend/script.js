@@ -5,17 +5,28 @@ const READING_LIST_KEY = "readingList";
 const booksContainer = document.querySelector("#books-container");
 const readingListBtn = document.querySelector("#reading-list-btn");
 
+const loginIdentifierInput = document.querySelector("#login-identifier");
+const loginPasswordInput = document.querySelector("#login-password");
+const loginBtn = document.querySelector("#login-btn");
+
+const registerUsernameInput = document.querySelector("#register-username");
+const registerEmailInput = document.querySelector("#register-email");
+const registerPasswordInput = document.querySelector("#register-password");
+const registerBtn = document.querySelector("#register-btn");
+
+const authSection = document.querySelector("#auth-section");
+const userSection = document.querySelector("#user-section");
+const loggedInUserText = document.querySelector("#logged-in-user");
+const logoutBtn = document.querySelector("#logout-btn");
+
 let books = [];
 let readingList = [];
 
 const init = () => {
     loadFromLocalStorage();
+    updateAuthUI();
     fetchBooks();
 };
-
-readingListBtn.addEventListener("click", () => {
-    renderReadinglist();
-});
 
 const fetchBooks = () => {
     axios
@@ -195,5 +206,55 @@ const loadFromLocalStorage = () => {
         readingList = JSON.parse(data);
     }
 };
+
+readingListBtn.addEventListener("click", () => {
+    renderReadinglist();
+});
+
+logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
+
+    updateAuthUI();
+});
+
+const updateAuthUI = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        authSection.style.display = "none";
+        userSection.style.display = "block";
+        loggedInUserText.textContent = `Logged in as: ${user.username}`;
+    } else {
+        authSection.style.display = "block";
+        userSection.style.display = "none";
+    }
+};
+
+registerBtn.addEventListener("click", () => {
+    const username = registerUsernameInput.value;
+    const email = registerEmailInput.value;
+    const password = registerPasswordInput.value;
+
+    axios
+        .post(`${BASE_URL}/api/auth/local/register`, {
+            username: username,
+            email: email,
+            password: password,
+        })
+        .then((response) => {
+            localStorage.setItem("authToken", response.data.jwt);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            updateAuthUI();
+            console.log(response.data);
+        })
+        .catch((error) => {
+            if (error.response) {
+                console.error("Registration failed:", error.response.data);
+            } else {
+                console.error("Registration failed:", error.message);
+            }
+        });
+});
 
 init();
