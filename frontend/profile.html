@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Book Ducks</title>
+        <title>Profile | Book Ducks</title>
         <link rel="stylesheet" href="style.css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="api.js" defer></script>
-        <script src="main.js" defer></script>
+        <script src="profile.js" defer></script>
     </head>
     <body>
         <header class="site-header">
@@ -22,10 +22,20 @@
             </nav>
         </header>
 
-        <section id="user-section">
-            <p id="logged-in-user"></p>
-        </section>
+        <main class="profile-page">
+            <section class="profile-header">
+                <h2 id="profile-title">Profile</h2>
+                <p id="logged-in-user"></p>
+            </section>
 
-        <main id="books-container"></main>
+            <section>
+                <h2>My Reading List</h2>
+
+                <button id="sort-title-btn">Sort by Title</button>
+                <button id="sort-author-btn">Sort by Author</button>
+
+                <div id="reading-list-container"></div>
+            </section>
+        </main>
     </body>
 </html>
