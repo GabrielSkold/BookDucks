@@ -26,6 +26,7 @@ const init = () => {
     loadFromLocalStorage();
     updateAuthUI();
     fetchBooks();
+    fetchTheme();
 };
 
 const fetchBooks = () => {
@@ -38,6 +39,23 @@ const fetchBooks = () => {
         .catch((error) => {
             console.error("Failed to fetch books:", error);
         });
+};
+
+const fetchTheme = () => {
+    axios
+        .get(`${BASE_URL}/api/theme`)
+        .then((response) => {
+            const theme = response.data.data;
+            applyTheme(theme);
+        })
+        .catch((error) => {
+            console.error("Failed to fetch theme:", error);
+        });
+};
+
+const applyTheme = (theme) => {
+    document.body.style.backgroundColor = theme.backgroundColor;
+    document.body.style.color = theme.primaryColor;
 };
 
 const renderBooks = () => {
@@ -230,6 +248,29 @@ const updateAuthUI = () => {
         userSection.style.display = "none";
     }
 };
+
+loginBtn.addEventListener("click", () => {
+    const identifier = loginIdentifierInput.value;
+    const password = loginPasswordInput.value;
+
+    axios
+        .post(`${BASE_URL}/api/auth/local`, {
+            identifier: identifier,
+            password: password,
+        })
+        .then((response) => {
+            localStorage.setItem("authToken", response.data.jwt);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            updateAuthUI();
+        })
+        .catch((error) => {
+            if (error.response) {
+                console.error("Login failed:", error.response.data);
+            } else {
+                console.error("Login failed:", error.message);
+            }
+        });
+});
 
 registerBtn.addEventListener("click", () => {
     const username = registerUsernameInput.value;
