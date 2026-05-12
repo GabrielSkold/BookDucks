@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Register | Book Ducks</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="api.js" defer></script>
+        <script src="register.js" defer></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <h1>Book Ducks</h1>
+
+            <nav>
+                <a href="index.html">Books</a>
+                <a href="profile.html">Profile</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </header>
+
+        <main class="auth-page">
+            <section class="auth-card">
+                <h2>Register</h2>
+
+                <input
+                    id="register-username"
+                    type="text"
+                    placeholder="Username"
+                />
+                <input id="register-email" type="email" placeholder="Email" />
+                <input
+                    id="register-password"
+                    type="password"
+                    placeholder="Password"
+                />
+
+                <button id="register-btn">Register</button>
+
+                <p>
+                    Already have an account? <a href="login.html">Login here</a>
+                </p>
+            </section>
+        </main>
+    </body>
+</html>

@@ -12,13 +12,13 @@
   "pluginOptions": {},
   "attributes": {
     "themeName": {
-      "type": "string"
-    },
-    "primaryColor": {
-      "type": "string"
-    },
-    "backgroundColor": {
-      "type": "string"
+      "type": "enumeration",
+      "default": "dark",
+      "enum": [
+        "dark",
+        "light",
+        "blue"
+      ]
     }
   }
 }
