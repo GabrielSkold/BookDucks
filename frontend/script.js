@@ -147,6 +147,7 @@ const bookDetails = (book) => {
         }
 
         readingList.splice(index, 1);
+        saveToLocalStorage();
         alert(`${book.title} removed from reading list`);
         console.log(readingList);
     });
